@@ -1,0 +1,2 @@
+import {apiError,apiSuccess} from "@/lib/api-response";import {requireGitHubSession} from "@/lib/github-session";import {listRepositories} from "@/services/github.service";
+export const runtime="nodejs";export async function GET(){try{const s=await requireGitHubSession();return apiSuccess({repositories:await listRepositories(s.installationId),login:s.login});}catch(e){return apiError(e instanceof Error?e.message:"Unable to load repositories",401);}}
